@@ -6,7 +6,7 @@ names = 'AB'
 # генерируем закрытый, публичный ключи и число N для каждого пользователя из names
 keys = {}
 for i in names:
-    keys[i] = fn.generatePublicAndSecretKeys(75)
+    keys[i] = fn.generatePublicAndSecretKeys(5)
 # вывод ключей всех пользователей
 for i in keys:
     print('key for', i, ' : ', keys[i])
