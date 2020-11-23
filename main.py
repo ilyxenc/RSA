@@ -1,22 +1,24 @@
 import functions as fn
 
-e, d, n = fn.generatePublicAndSecretKey()
-print('e: ', e)
-print('d: ', d)
-print('n: ', n)
+# задаём имена участникам
+names = 'AB'
 
-print('\n')
+# генерируем закрытый, публичный ключи и число N для каждого пользователя из names
+keys = {}
+for i in names:
+    keys[i] = fn.generatePublicAndSecretKeys(75)
+# вывод ключей всех пользователей
+for i in keys:
+    print('key for', i, ' : ', keys[i])
 
-text = 'привки, чувакк'
+# A шифрует сообщение для B. Для этого берёт открытый ключ и N пользователя B
+M = ord('H')
+d, e, N = keys['B']['d'], keys['B']['e'], keys['B']['N']
 
-encrypted = fn.encryptText(e, n, text)
+C = fn.power(M, e, N)
 
-decrypted = fn.decryptText(d, n, encrypted)
+MO = fn.power(C, d, N)
 
-print('\n')
+print(e, N)
 
-print('Text in indexes : ', fn.textToIndexes(text))
-
-print('Encrypted text  : ', encrypted)
-
-print('Decrypted text  : ', decrypted)
+print(M, C, MO)
