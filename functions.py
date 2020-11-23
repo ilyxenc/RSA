@@ -65,6 +65,7 @@ def MillerRabin(num):
                     v = (v ** 2) % num
     return True
 
+# рекурентный алгоритм к КЦД
 def fct(arr):
     global b
     if arr == []:
@@ -109,6 +110,7 @@ def gcdex(a, m, b = 1, d = 1):
         arrX.append(int(x0 + i * newM))
     return arrX
 
+# нахождение рандомного числа num при условии НОД(num, b) = 1
 def randGcd1(b):
     rangeStart = 2
     rangeEnd = b - 1
@@ -117,7 +119,18 @@ def randGcd1(b):
         if math.gcd(num, b) == 1:
             return num
 
-def generatePublicAndSecretKeys(size = 3):
+# быстрый поиск модуля от степени числа
+def power(x, n, mod):
+    if n == 0:
+        return 1
+    elif n % 2 == 0:
+        p = power(x, n / 2, mod)
+        return (p * p) % mod
+    else:
+        return (x * power(x, n - 1, mod)) % mod
+
+# генерация ключей d, e и числа N
+def generatePublicAndSecretKeys(size = 5):
     p, q = randPrime(size), randPrime(size)
     N = p * q
     f = (p - 1) * (q - 1)
@@ -130,12 +143,29 @@ def generatePublicAndSecretKeys(size = 3):
 
     return keys
 
-# быстрый поиск модуля от степени числа
-def power(x, n, mod):
-    if n == 0:
-        return 1
-    elif n % 2 == 0:
-        p = power(x, n / 2, mod)
-        return (p * p) % mod
-    else:
-        return (x * power(x, n - 1, mod)) % mod
+# шифрование текста
+def encrypt(text, e, N):
+    # перевод текста в числа
+    textArray = []
+    for i in text:
+        textArray.append(ord(i))
+    encrypted = []
+    # шифрование текста
+    for i in textArray:
+        encrypted.append(power(i, e, N))
+
+    encryptedText = ''
+    for i in encrypted:
+        encryptedText += chr(i % (sys.maxunicode + 1))
+    return encrypted, encryptedText
+
+# расшифровка текста
+def decrypt(encrypted, d, N):
+    decrypted = []
+    for i in encrypted:
+        decrypted.append(power(i, d, N))
+
+    decryptedText = ''
+    for i in range(len(decrypted)):
+        decryptedText += chr(decrypted[i] % (sys.maxunicode + 1))
+    return decrypted, decryptedText
