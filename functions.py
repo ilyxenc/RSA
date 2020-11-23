@@ -153,7 +153,7 @@ def encrypt(text, e, N):
     # шифрование текста
     for i in textArray:
         encrypted.append(power(i, e, N))
-
+    # перевод шифрованного текста в псевдотекст (нельзя расшифровывать по тексту)
     encryptedText = ''
     for i in encrypted:
         encryptedText += chr(i % (sys.maxunicode + 1))
@@ -161,10 +161,11 @@ def encrypt(text, e, N):
 
 # расшифровка текста
 def decrypt(encrypted, d, N):
+    # расшифрование текста
     decrypted = []
     for i in encrypted:
         decrypted.append(power(i, d, N))
-
+    # перевод расшифрованного текста в текст
     decryptedText = ''
     for i in range(len(decrypted)):
         decryptedText += chr(decrypted[i] % (sys.maxunicode + 1))
