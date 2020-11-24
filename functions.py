@@ -149,8 +149,8 @@ def encrypt(text, e, N):
     textArray = []
     for i in text:
         textArray.append(ord(i))
-    encrypted = []
     # шифрование текста
+    encrypted = []
     for i in textArray:
         encrypted.append(power(i, e, N))
     # перевод шифрованного текста в псевдотекст (нельзя расшифровывать по тексту)
