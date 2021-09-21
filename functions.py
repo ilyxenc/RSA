@@ -26,7 +26,7 @@ def isPrime(num):
 # решето Эратосфена
 def primeSieve(sieveSize):
     sieve = [True] * sieveSize
-    sieve[0] = False # Zero and one are not prime numbers.
+    sieve[0] = False # Ноль и единица не являются простыми числами
     sieve[1] = False
     for i in range(2, int(math.sqrt(sieveSize)) + 1):
         pointer = i * 2
@@ -66,8 +66,7 @@ def MillerRabin(num):
     return True
 
 # рекурентный алгоритм к КЦД
-def fct(arr):
-    global b
+def fct(arr, b):
     if arr == []:
         return 'Null division', 0
     elif arr == [0.0]:
@@ -101,7 +100,7 @@ def gcdex(a, m, b = 1, d = 1):
         m = a
         a = p - (p // a) * a
 
-    pN_1, n = fct(arr)
+    pN_1, n = fct(arr, b)
 
     x0 = (((-1) ** (n - 1)) * pN_1 * b) % newM
 
